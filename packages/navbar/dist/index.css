@@ -590,33 +590,32 @@ video {
     rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
-[data-theme="dark"] .dark\:border-slate-700 {
+.dark .dark\:border-slate-700 {
   --tw-border-opacity: 1;
   border-color: rgb(51 65 85 / var(--tw-border-opacity));
 }
-[data-theme="dark"] .dark\:bg-slate-800 {
+.dark .dark\:bg-slate-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
-[data-theme="dark"] .dark\:text-slate-100 {
+.dark .dark\:text-slate-100 {
   --tw-text-opacity: 1;
   color: rgb(241 245 249 / var(--tw-text-opacity));
 }
-[data-theme="dark"] .dark\:hover\:bg-slate-800:hover {
+.dark .dark\:hover\:bg-slate-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
-[data-theme="dark"] .dark\:hover\:text-slate-100:hover {
+.dark .dark\:hover\:text-slate-100:hover {
   --tw-text-opacity: 1;
   color: rgb(241 245 249 / var(--tw-text-opacity));
 }
-[data-theme="dark"] .dark\:focus\:bg-slate-800:focus {
+.dark .dark\:focus\:bg-slate-800:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
-[data-theme="dark"]
-  .dark\:data-\[state\=open\]\:bg-slate-800[data-state="open"],
-[data-theme="dark"] .dark\:data-\[active\]\:bg-slate-800[data-active] {
+.dark .dark\:data-\[state\=open\]\:bg-slate-800[data-state="open"],
+.dark .dark\:data-\[active\]\:bg-slate-800[data-active] {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
