@@ -13,7 +13,7 @@
     "@palanikannan1437/rc4-core": "workspace:*",
     "@palanikannan1437/rc4-ui": "workspace:*",
     "@palanikannan1437/rc4community-navbar": "workspace:*",
-    "@palanikannan1437/rc4community-timeline": "workspace:^0.0.2",
+    "@palanikannan1437/rc4community-timeline": "workspace:*",
     "@radix-ui/react-icons": "^1.2.0",
     "@radix-ui/react-navigation-menu": "^1.1.1",
     "class-variance-authority": "^0.4.0",
