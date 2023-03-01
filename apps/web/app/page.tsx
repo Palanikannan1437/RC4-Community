@@ -1,4 +1,3 @@
-"use client"
 import { Button, Card } from "@palanikannan1437/rc4-ui";
 
 const CARD_CONTENT = [

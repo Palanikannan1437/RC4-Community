@@ -6,5 +6,5 @@ import {
 export default async function Home() {
   const data = await fetchTimelineData();
 
-  return <Timeline type="horizontal" data={data} />;
+  return <Timeline type="vertical" data={data} />;
 }
