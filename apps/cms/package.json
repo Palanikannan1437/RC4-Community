@@ -1,0 +1,30 @@
+{
+  "name": "cms",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Strapi cms for community builders",
+  "scripts": {
+    "dev": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "@strapi/strapi": "4.7.0",
+    "@strapi/plugin-users-permissions": "4.7.0",
+    "@strapi/plugin-i18n": "4.7.0",
+    "better-sqlite3": "8.0.1"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "d264daf5-7be4-46a1-851a-213fd4bd2142"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

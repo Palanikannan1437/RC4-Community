@@ -8,3 +8,14 @@ tasks:
 
 image:
   file: .gitpod.Dockerfile
+
+ports:
+  - port: 1337
+    visibility: public
+    onOpen: ignore
+  - port: 3001
+    visibility: public
+    onOpen: ignore
+  - port: 3000
+    visibility: public
+    onOpen: open-browser
