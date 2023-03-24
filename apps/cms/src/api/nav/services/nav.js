@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * timeline service
+ * nav service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::timeline.timeline');
+module.exports = createCoreService('api::nav.nav');

@@ -15,122 +15,11 @@ import {
   navigationMenuTriggerStyle,
 } from "@palanikannan1437/rc4community-navbar";
 import { signIn, signOut } from "next-auth/react";
+import { Session } from "next-auth";
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-];
+type NavObjectType = { id: string, attributes: { title: string; href: string; description: string } };
 
-const components1: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-];
-
-const components2: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-];
-
-export function CustomNavBar({ session }) {
+export function CustomNavBar({ session, components }: { session: Session | null, components: NavObjectType[] }) {
   return (
     <header className="body-font text-gray-600">
       <div className="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row">
@@ -147,7 +36,7 @@ export function CustomNavBar({ session }) {
           >
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
-          <span className="ml-3 text-xl">Tailblocks</span>
+          <span className="ml-3 text-xl">RC4Community</span>
         </a>
         <nav className="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto">
           <NavigationMenu>
@@ -163,7 +52,7 @@ export function CustomNavBar({ session }) {
                           href="/"
                         >
                           <div className="mt-4 mb-2 text-lg font-medium text-white">
-                            shadcn/ui
+                            rc/ui
                           </div>
                           <p className="text-sm leading-tight text-white/90">
                             Beautifully designed components built with Radix UI
@@ -195,11 +84,11 @@ export function CustomNavBar({ session }) {
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                       {components.map((component) => (
                         <ListItem
-                          key={component.title}
-                          title={component.title}
-                          href={component.href}
+                          key={component.id}
+                          title={component.attributes.title}
+                          href={component.attributes.href}
                         >
-                          {component.description}
+                          {component.attributes.description}
                         </ListItem>
                       ))}
                     </ul>
@@ -213,11 +102,11 @@ export function CustomNavBar({ session }) {
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                       {components.map((component) => (
                         <ListItem
-                          key={component.title}
-                          title={component.title}
-                          href={component.href}
+                          key={component.id}
+                          title={component.attributes.title}
+                          href={component.attributes.href}
                         >
-                          {component.description}
+                          {component.attributes.description}
                         </ListItem>
                       ))}
                     </ul>
@@ -231,11 +120,11 @@ export function CustomNavBar({ session }) {
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                       {components.map((component) => (
                         <ListItem
-                          key={component.title}
-                          title={component.title}
-                          href={component.href}
+                          key={component.attributes.title}
+                          title={component.attributes.title}
+                          href={component.attributes.href}
                         >
-                          {component.description}
+                          {component.attributes.description}
                         </ListItem>
                       ))}
                     </ul>

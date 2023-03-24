@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * timeline controller
+ * nav controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::timeline.timeline');
+module.exports = createCoreController('api::nav.nav');

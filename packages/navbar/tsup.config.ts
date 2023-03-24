@@ -1,5 +1,7 @@
 import { defineConfig, Options } from "tsup";
 
+import { commonjs } from "@hyrious/esbuild-plugin-commonjs";
+
 export default defineConfig((options: Options) => ({
   treeshake: true,
   splitting: true,
@@ -8,5 +10,6 @@ export default defineConfig((options: Options) => ({
   dts: true,
   minify: true,
   external: ["react"],
+  plugins: [commonjs()],
   ...options,
 }));

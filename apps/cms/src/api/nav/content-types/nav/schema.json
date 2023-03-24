@@ -1,23 +1,20 @@
 {
   "kind": "collectionType",
-  "collectionName": "timelines",
+  "collectionName": "navs",
   "info": {
-    "singularName": "timeline",
-    "pluralName": "timelines",
-    "displayName": "timeline"
+    "singularName": "nav",
+    "pluralName": "navs",
+    "displayName": "nav"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
+    "href": {
+      "type": "string"
+    },
     "title": {
-      "type": "string"
-    },
-    "meta": {
-      "type": "string"
-    },
-    "subtitle": {
       "type": "string"
     },
     "description": {

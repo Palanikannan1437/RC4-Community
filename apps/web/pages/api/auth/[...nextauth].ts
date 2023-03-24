@@ -65,9 +65,6 @@ export const authOptions: NextAuthOptions = {
       session.userRole = token.roleFromFauna;
       return session;
     },
-    async signIn({}) {
-      return true;
-    },
   },
 };
 
