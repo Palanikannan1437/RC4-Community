@@ -16,7 +16,7 @@ tasks:
       pnpm run develop
   - name: Nav Package
     before: |
-      cd packages/app
+      cd packages/navbar
     init: |
       pnpm run build
     command: |
