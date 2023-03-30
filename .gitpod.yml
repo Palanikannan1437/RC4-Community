@@ -1,11 +1,26 @@
 tasks:
   - name: Start all services
-    before: git submodule update --recursive --remote
+    before: |
+      git submodule update --recursive --remote
+      cd apps/web
     init: |
       pnpm install && turbo run build
     command: |
       pnpm run dev
-
+  - name: Start Strapi
+    before: |
+      cd apps/cms
+    init: |
+      pnpm run build
+    command: |
+      pnpm run develop
+  - name: Nav Package
+    before: |
+      cd packages/app
+    init: |
+      pnpm run build
+    command: |
+      pnpm run dev
 image:
   file: .gitpod.Dockerfile
 
