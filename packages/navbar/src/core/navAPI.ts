@@ -43,9 +43,6 @@ export async function fetchNavData(
         },
       },
     },
-    {
-      encodeValuesOnly: true, // prettify URL
-    }
   );
 
   const requestUrl = `${getStrapiURL(
@@ -55,12 +52,13 @@ export async function fetchNavData(
   const response = await fetch(requestUrl, mergedOptions);
 
   if (!response.ok) {
-    console.error(response.statusText);
+    console.error(response);
     throw new Error(`An error occured please try again`);
   }
+
   const data = await response.json();
 
-  return data.data[0].attributes;
+  return data.length > 0 ? data.data[0].attributes : [];
 }
 
 export type NavBarData = {

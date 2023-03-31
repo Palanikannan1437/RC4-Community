@@ -16,12 +16,12 @@ export default async function RootLayout({
 
   const navData = await fetchNavData({ "cache": "no-store" });
 
-  const navItems = [
+  const navItems = navData.length > 0 ? [
     { show: true, item: navData.variant1.data[0] },
     { show: true, item: navData.variant2.data[0] },
     { show: true, item: navData.variant3.data[1] },
     { show: true, item: navData.variant1.data[1] },
-  ]
+  ] : []
 
   return (
     <html className="ui-dark dark bg-zinc-900">

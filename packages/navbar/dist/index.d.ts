@@ -20,6 +20,6 @@ type Props = {
     logo: ReactNode;
     logoSec: ReactNode;
 };
-declare const NavDemo: ({ navData, navItems, logo, logoSec }: Props) => JSX.Element;
+declare const NavDemo: ({ navData, navItems, logo, logoSec }: Props) => false | JSX.Element;
 
 export { NavDemo, NavigationMenu, NavigationMenuContent, NavigationMenuIndicator, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport, navigationMenuTriggerStyle };
