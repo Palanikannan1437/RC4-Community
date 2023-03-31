@@ -5,9 +5,8 @@ import qs from "qs";
  * @returns {string} Full Strapi URL
  */
 export function getStrapiURL(path: string = ""): string {
-  return `${
-    process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
-  }${path}`;
+  return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
+    }${path}`;
 }
 
 /**
@@ -79,8 +78,17 @@ export type NavItem = {
       description: string;
       href?: string;
     };
-  };
+  }
 };
+
+export type SubTile = {
+  id: string;
+  attributes: {
+    title: string;
+    description: string;
+    href?: string;
+  };
+}
 
 export type NavItems = (
   | { show: boolean; item: Variant1 }
@@ -95,7 +103,7 @@ export type Variant1 = {
     type: "variant1";
     title: string;
     tile: NavItem;
-    subTiles: { data: [NavItem, NavItem, NavItem] };
+    subTiles: { data: [SubTile, SubTile, SubTile] };
   };
 };
 
@@ -105,7 +113,7 @@ export type Variant2 = {
   attributes: {
     type: "variant2";
     title: string;
-    components: NavItem[];
+    components: { data: SubTile[] };
   };
 };
 
@@ -121,5 +129,5 @@ export type Variant3 = {
 
 //brand logo component
 export type BrandLogo = {
-  logoText: string;
+  data: { attributes: { logoText: string; } }
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,7 +12,7 @@ import {
 } from "./Navbar";
 
 import Link from "next/link";
-import { NavBarData, NavItems } from "../server";
+import { NavBarData, NavItems, SubTile } from "../server";
 import { cn } from "@lib/utils";
 
 type Props = {
@@ -67,7 +67,7 @@ export const NavDemo = ({ navData, navItems, logo }: Props) => {
                               </NavigationMenuLink>
                             </li>
                             {navItem.item.attributes.subTiles.data.map(
-                              (subTile) => {
+                              (subTile: SubTile) => {
                                 return (
                                   <ListItem
                                     href={subTile.attributes.href}
@@ -83,9 +83,6 @@ export const NavDemo = ({ navData, navItems, logo }: Props) => {
                       </NavigationMenuItem>
                     );
                   } else if (navItem.item.attributes.type === "variant2") {
-                    console.log(
-                      navItem.item.attributes.components.data[0].attributes
-                    );
                     return (
                       <NavigationMenuItem>
                         <NavigationMenuTrigger>
@@ -95,7 +92,6 @@ export const NavDemo = ({ navData, navItems, logo }: Props) => {
                           <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                             {navItem.item.attributes.components.data.map(
                               (component) => {
-                                console.log("comp",component)
                                 return (
                                   <ListItem
                                     key={component.id}

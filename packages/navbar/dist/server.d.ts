@@ -1,1 +1,1 @@
-export { B as BrandLogo, N as NavBarData, c as NavItem, a as NavItems, V as Variant1, d as Variant2, e as Variant3, b as fetchNavData, f as fetchNavData1, g as getStrapiURL } from './navAPI-f012c66b.js';
+export { B as BrandLogo, N as NavBarData, b as NavItem, a as NavItems, S as SubTile, V as Variant1, c as Variant2, d as Variant3, f as fetchNavData, g as getStrapiURL } from './navAPI-c348e897.js';

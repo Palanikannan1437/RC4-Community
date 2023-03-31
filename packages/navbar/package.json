@@ -5,7 +5,7 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "types": "./dist/index.d.ts",
+  "types": "dist/*.d.ts",
   "exports": {
     ".": {
       "require": "./dist/index.js",
