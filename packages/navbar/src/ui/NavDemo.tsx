@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,99 +12,122 @@ import {
 } from "./Navbar";
 
 import Link from "next/link";
-import { NavObjectType } from "../server";
+import { NavBarData, NavItems } from "../server";
 import { cn } from "@lib/utils";
 
 type Props = {
-  components: NavObjectType[];
-  navData: any;
-  final: object[];
+  navData: NavBarData;
+  navItems: NavItems;
+  logo: ReactNode;
 };
 
-export const NavDemo = ({ components, navData, final }: Props) => {
+export const NavDemo = ({ navData, navItems, logo }: Props) => {
+  console.log("here", navData);
   return (
     <header className="body-font text-gray-600">
       <div className="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row">
         <a className="title-font mb-4 flex items-center font-medium text-gray-900 md:mb-0">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="h-10 w-10 rounded-full bg-indigo-500 p-2 text-white"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-          </svg>
-          <span className="ml-3 text-xl">{navData.brandLogo.logoText}</span>
+          {logo}
+          <span className="ml-3 text-xl">
+            {navData.brandLogo.data.attributes.logoText}
+          </span>
         </a>
         <nav className="flex flex-wrap items-center justify-center text-base md:ml-auto md:mr-auto">
           <NavigationMenu>
             <NavigationMenuList>
-              {final.map((navItem) => {
-                if (navItem.type === "variant1") {
-                  return (
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>{navItem.title}</NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                          <li className="row-span-3">
-                            <NavigationMenuLink asChild>
-                              <a
-                                className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-rose-500 to-indigo-700 p-6 no-underline outline-none focus:shadow-md"
-                                href="/"
-                              >
-                                <div className="mt-4 mb-2 text-lg font-medium text-white">
-                                  {navItem.tile.text}
-                                </div>
-                                <p className="text-sm leading-tight text-white/90">
-                                  {navItem.tile.description}
-                                </p>
-                              </a>
-                            </NavigationMenuLink>
-                          </li>
-                          {navItem.subTiles.map((subTile) => {
-                            return (
-                              <ListItem href={subTile.href} title={subTile.title}>
-                                {subTile.description}
-                              </ListItem>
-                            )
-                          })}
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                  )
-                } else if (navItem.type === "variant2") {
-                  return (
-                    <NavigationMenuItem>
-                      <NavigationMenuTrigger>{navItem.title}</NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                          {navItem.components.map((component) => (
-                            <ListItem
-                              key={component.id}
-                              title={component.attributes.title}
-                              href={component.attributes.href}
-                            >
-                              {component.attributes.description}
-                            </ListItem>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                  )
-                } else if (navItem.type === "variant3") {
-                  return (
-                    <NavigationMenuItem>
-                      <Link href={navItem.href} legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                          {navItem.title}
-                        </NavigationMenuLink>
-                      </Link>
-                    </NavigationMenuItem>
-                  )
+              {navItems.map((navItem) => {
+                if (navItem.show) {
+                  if (navItem.item.attributes.type === "variant1") {
+                    return (
+                      <NavigationMenuItem>
+                        <NavigationMenuTrigger>
+                          {navItem.item.attributes.title}
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                            <li className="row-span-3">
+                              <NavigationMenuLink asChild>
+                                <a
+                                  className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-rose-500 to-indigo-700 p-6 no-underline outline-none focus:shadow-md"
+                                  href="/"
+                                >
+                                  <div className="mt-4 mb-2 text-lg font-medium text-white">
+                                    {
+                                      navItem.item.attributes.tile.data
+                                        .attributes.description
+                                    }
+                                  </div>
+                                  <p className="text-sm leading-tight text-white/90">
+                                    {
+                                      navItem.item.attributes.tile.data
+                                        .attributes.description
+                                    }
+                                  </p>
+                                </a>
+                              </NavigationMenuLink>
+                            </li>
+                            {navItem.item.attributes.subTiles.data.map(
+                              (subTile) => {
+                                return (
+                                  <ListItem
+                                    href={subTile.attributes.href}
+                                    title={subTile.attributes.title}
+                                  >
+                                    {subTile.attributes.description}
+                                  </ListItem>
+                                );
+                              }
+                            )}
+                          </ul>
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                    );
+                  } else if (navItem.item.attributes.type === "variant2") {
+                    console.log(
+                      navItem.item.attributes.components.data[0].attributes
+                    );
+                    return (
+                      <NavigationMenuItem>
+                        <NavigationMenuTrigger>
+                          {navItem.item.attributes.title}
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                            {navItem.item.attributes.components.data.map(
+                              (component) => {
+                                console.log("comp",component)
+                                return (
+                                  <ListItem
+                                    key={component.id}
+                                    title={component.attributes.title}
+                                    href={component.attributes.href}
+                                  >
+                                    {component.attributes.description}
+                                  </ListItem>
+                                );
+                              }
+                            )}
+                          </ul>
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                    );
+                  } else if (navItem.item.attributes.type === "variant3") {
+                    return (
+                      <NavigationMenuItem>
+                        <Link
+                          href={navItem.item.attributes.href}
+                          legacyBehavior
+                          passHref
+                        >
+                          <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                          >
+                            {navItem.item.attributes.title}
+                          </NavigationMenuLink>
+                        </Link>
+                      </NavigationMenuItem>
+                    );
+                  }
                 }
               })}
             </NavigationMenuList>

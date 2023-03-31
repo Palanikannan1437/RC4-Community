@@ -1,6 +1,6 @@
-import { d as d$1, a } from './chunk-MIGENICT.mjs';
-import p from 'qs';
+import { d, a } from './chunk-MIGENICT.mjs';
+import s from 'qs';
 
-function g(t=""){return `${process.env.NEXT_PUBLIC_STRAPI_API_URL||"http://localhost:1337"}${t}`}function d(){return d$1(this,arguments,function*(t={},o={}){let s=a({headers:{"Content-Type":"application/json"}},t),e=p.stringify(o),a$1=`${g(`/api/navs${e?`?${e}`:""}`)}`,r=yield fetch(a$1,s);if(!r.ok)throw console.error(r.statusText),new Error("An error occured please try again");return (yield r.json()).data})}
+function p(t=""){return `${process.env.NEXT_PUBLIC_STRAPI_API_URL||"http://localhost:1337"}${t}`}function u(){return d(this,arguments,function*(t={},l={}){let i=a({headers:{"Content-Type":"application/json"}},t),e=s.stringify({populate:{variant1:{populate:["tile","subTiles"]},variant2:{populate:["components"]},variant3:{populate:["*"]},brandLogo:{populate:["*"]}}},{encodeValuesOnly:!0}),o=`${p(`/api/nav-datas${e?`?${e}`:""}`)}`,a$1=yield fetch(o,i);if(!a$1.ok)throw console.error(a$1.statusText),new Error("An error occured please try again");return (yield a$1.json()).data[0].attributes})}
 
-export { d as fetchNavData, g as getStrapiURL };
+export { u as fetchNavData, p as getStrapiURL };

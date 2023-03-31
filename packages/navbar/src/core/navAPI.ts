@@ -5,8 +5,9 @@ import qs from "qs";
  * @returns {string} Full Strapi URL
  */
 export function getStrapiURL(path: string = ""): string {
-    return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
-        }${path}`;
+  return `${
+    process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
+  }${path}`;
 }
 
 /**
@@ -16,82 +17,109 @@ export function getStrapiURL(path: string = ""): string {
  * @returns Parsed API call response
  */
 export async function fetchNavData(
-    options: object = {},
-    urlParamsObject: object = {}
-): Promise<Component[]> {
-    const mergedOptions = {
-        headers: {
-            "Content-Type": "application/json",
+  options: object = {},
+  urlParamsObject: object = {}
+): Promise<NavItems[]> {
+  const mergedOptions = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    ...options,
+  };
+
+  const queryString = qs.stringify(
+    {
+      populate: {
+        variant1: {
+          populate: ["tile", "subTiles"],
         },
-        ...options,
-    };
-
-    const queryString = qs.stringify(urlParamsObject);
-    const requestUrl = `${getStrapiURL(
-        `/api/navs${queryString ? `?${queryString}` : ""}`
-    )}`;
-
-    const response = await fetch(requestUrl, mergedOptions);
-
-    if (!response.ok) {
-        console.error(response.statusText);
-        throw new Error(`An error occured please try again`);
+        variant2: {
+          populate: ["components"],
+        },
+        variant3: {
+          populate: ["*"],
+        },
+        brandLogo: {
+          populate: ["*"],
+        },
+      },
+    },
+    {
+      encodeValuesOnly: true, // prettify URL
     }
-    const data = await response.json();
-    return data.data;
+  );
+
+  const requestUrl = `${getStrapiURL(
+    `/api/nav-datas${queryString ? `?${queryString}` : ""}`
+  )}`;
+
+  const response = await fetch(requestUrl, mergedOptions);
+
+  if (!response.ok) {
+    console.error(response.statusText);
+    throw new Error(`An error occured please try again`);
+  }
+  const data = await response.json();
+
+  return data.data[0].attributes;
 }
 
-export type Component = { id: string, attributes: { title: string; href: string; description: string } };
+export type NavBarData = {
+  brandLogo: BrandLogo;
+  variant1: Variant1[];
+  variant2: Variant2[];
+  variant3: Variant3[];
+};
 
-export type Root = {
-    brandLogo: BrandLogo
-    variant1: Variant1[]
-    variant2: Variant2[]
-    variant3: Variant3[]
-}
+export type NavItem = {
+  data: {
+    id: string;
+    attributes: {
+      title: string;
+      description: string;
+      href?: string;
+    };
+  };
+};
 
-export type NavItems = (Variant1 | Variant2 | Variant3)[]
+export type NavItems = (
+  | { show: boolean; item: Variant1 }
+  | { show: boolean; item: Variant2 }
+  | { show: boolean; item: Variant3 }
+)[];
 
-export type BrandLogo = {
-    logoPath: string
-    logoText: string
-}
-
+// variant 1 --> tiles
 export type Variant1 = {
-    title: string
-    type: string
-    tile: Tile
-    subTiles: [SubTile, SubTile, SubTile]
-}
+  id: string;
+  attributes: {
+    type: "variant1";
+    title: string;
+    tile: NavItem;
+    subTiles: { data: [NavItem, NavItem, NavItem] };
+  };
+};
 
-export type Tile = {
-    text: string
-    description: string
-}
-
-export type SubTile = {
-    href: string
-    title: string
-    description: string
-}
-
+// variant 2 --> group of links
 export type Variant2 = {
-    title: string
-    type: string
-    components: Component[]
-}
+  id: string;
+  attributes: {
+    type: "variant2";
+    title: string;
+    components: NavItem[];
+  };
+};
 
-export type Attributes = {
-    href: string
-    title: string
-    description: string
-    createdAt: string
-    updatedAt: string
-    publishedAt: string
-}
-
+// variant 3 --> link
 export type Variant3 = {
-    title: string
-    type: string
-    href: string
-}
+  id: string;
+  attributes: {
+    type: "variant3";
+    title: string;
+    href: string;
+  };
+};
+
+//brand logo component
+export type BrandLogo = {
+  logoText: string;
+};

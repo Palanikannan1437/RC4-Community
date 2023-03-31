@@ -14,103 +14,19 @@ export default async function RootLayout({
 }) {
   const session = await getSession();
 
-  const components = await fetchNavData();
-
-  const navData = {
-    brandLogo: { logoPath: "as", logoText: "RC4Community" },
-    variant1: [
-      {
-        title: "Getting started 1",
-        type: "variant1",
-        tile: {
-          text: "rc-ui",
-          description:
-            "Beautifully designed components built with Radix UI and Tailwind CSS.",
-        },
-        subTiles: [
-          {
-            href: "/",
-            title: "Introduction",
-            description:
-              "Re-usable components built using Radix UI and Tailwind CSS.",
-          },
-          {
-            href: "/",
-            title: "Installation",
-            description: "How to install dependencies and structure your app.",
-          },
-          {
-            href: "/",
-            title: "Introduction",
-            description:
-              "Re-usable components built using Radix UI and Tailwind CSS.",
-          },
-        ],
-      },
-      {
-        title: "Getting started 2",
-        type: "variant1",
-        tile: {
-          text: "rc-ui",
-          description:
-            "Beautifully designed components built with Radix UI and Tailwind CSS.",
-        },
-        subTiles: [
-          {
-            href: "/",
-            title: "Introduction",
-            description:
-              "Re-usable components built using Radix UI and Tailwind CSS.",
-          },
-          {
-            href: "/",
-            title: "Installation",
-            description: "How to install dependencies and structure your app.",
-          },
-          {
-            href: "/",
-            title: "Introduction",
-            description:
-              "Re-usable components built using Radix UI and Tailwind CSS.",
-          },
-        ],
-      },
-    ],
-    variant2: [
-      {
-        title: "No Role",
-        type: "variant2",
-        components: components,
-      },
-      {
-        title: "Member",
-        type: "variant2",
-        components: components,
-      },
-      {
-        title: "Admin",
-        type: "variant2",
-        components: components,
-      },
-    ],
-    variant3: [
-      { title: "Documentation", type: "variant3", href: "/docs" },
-      { title: "Docs", type: "variant3", href: "/docs" },
-    ],
-  };
+  const navData = await fetchNavData({"cache":"no-store"});
   
-  console.log(JSON.stringify(navData))
-
-  const final = [
-    navData.variant1[0],
-    navData.variant2[0],
-    navData.variant3[1],
-    navData.variant1[1],
+  const navItems = [
+    { show: true, item: navData.variant1.data[0] },
+    { show: true, item: navData.variant2.data[0] },
+    { show: true, item: navData.variant3.data[1] },
+    { show: true, item: navData.variant1.data[1] },
   ]
+
   return (
     <html className="ui-dark dark bg-zinc-900">
       <body>
-        <NavigationMenuDemo session={session} components={components} navData={navData} final={final} />
+        <NavigationMenuDemo session={session} navData={navData} navItems={navItems} />
         <div className="flex min-h-screen flex-col items-center justify-center py-2">
           <main className="mx-auto w-auto px-4 pt-16 pb-8 sm:pt-24 lg:px-8">
             {children}
@@ -121,6 +37,128 @@ export default async function RootLayout({
   );
 }
 
+// const navData = {
+//   brandLogo: { logoText: "RC4Community" },
+//   variant1: [
+//     {
+//       id: "string",
+//       attributes: {
+//         type: "variant1",
+//         title: "Getting started 1",
+//         tile: {
+//           attributes: {
+//             title: "rc-ui",
+//             description:
+//               "Beautifully designed components built with Radix UI and Tailwind CSS.",
+//           }
+//         },
+//         subTiles: [
+//           {
+//             id: "s",
+//             attributes: {
+//               href: "/",
+//               title: "Introduction",
+//               description:
+//                 "Re-usable components built using Radix UI and Tailwind CSS.",
+//             }
+//           },
+//           {
+//             id: "w",
+//             attributes: {
+//               href: "/",
+//               title: "Installation",
+//               description: "How to install dependencies and structure your app.",
+//             }
+//           },
+//           {
+//             id: "s3",
+//             attributes: {
+//               href: "/",
+//               title: "Introduction",
+//               description:
+//                 "Re-usable components built using Radix UI and Tailwind CSS.",
+//             }
+//           },
+//         ],
+//       }
+
+//     },
+//     {
+//       id: "string1",
+//       attributes: {
+//         title: "Getting started 2",
+//         type: "variant1",
+//         tile: {
+//           id: "soem",
+//           attributes: {
+//             title: "rc-ui",
+//             description:
+//               "Beautifully designed components built with Radix UI and Tailwind CSS.",
+//           }
+//         },
+//         subTiles: [
+//           {
+//             id: "s",
+//             attributes: {
+//               href: "/",
+//               title: "Introduction",
+//               description:
+//                 "Re-usable components built using Radix UI and Tailwind CSS.",
+//             }
+//           },
+//           {
+//             id: "w",
+//             attributes: {
+//               href: "/",
+//               title: "Installation",
+//               description: "How to install dependencies and structure your app.",
+//             }
+//           },
+//           {
+//             id: "s3",
+//             attributes: {
+//               href: "/",
+//               title: "Introduction",
+//               description:
+//                 "Re-usable components built using Radix UI and Tailwind CSS.",
+//             }
+//           },
+//         ],
+//       }
+
+//     }
+//   ],
+//   variant2: [
+//     {
+//       id: '2',
+//       attributes: {
+//         title: "No Role",
+//         type: "variant2",
+//         components: components,
+//       }
+//     },
+//     {
+//       id: '3',
+//       attributes: {
+//         title: "Member",
+//         type: "variant2",
+//         components: components,
+//       }
+//     },
+//     {
+//       id: '4',
+//       attributes: {
+//         title: "Admin",
+//         type: "variant2",
+//         components: components,
+//       }
+//     },
+//   ],
+//   variant3: [
+//     { id: '5', attributes: { title: "Documentation", type: "variant3", href: "/docs" } },
+//     { id: '6', attributes: { title: "Docs", type: "variant3", href: "/docs" } },
+//   ],
+// };
 // export function getStrapiURL(path: string = ""): string {
 //   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
 //     }${path}`;
