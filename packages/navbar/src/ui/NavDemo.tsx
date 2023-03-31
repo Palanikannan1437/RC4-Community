@@ -19,10 +19,10 @@ type Props = {
   navData: NavBarData;
   navItems: NavItems;
   logo: ReactNode;
+  logoSec: ReactNode
 };
 
-export const NavDemo = ({ navData, navItems, logo }: Props) => {
-  console.log("here", navData);
+export const NavDemo = ({ navData, navItems, logo, logoSec }: Props) => {
   return (
     <header className="body-font text-gray-600">
       <div className="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row">
@@ -39,7 +39,7 @@ export const NavDemo = ({ navData, navItems, logo }: Props) => {
                 if (navItem.show) {
                   if (navItem.item.attributes.type === "variant1") {
                     return (
-                      <NavigationMenuItem>
+                      <NavigationMenuItem key={navItem.item.id + "variant1"}>
                         <NavigationMenuTrigger>
                           {navItem.item.attributes.title}
                         </NavigationMenuTrigger>
@@ -70,6 +70,7 @@ export const NavDemo = ({ navData, navItems, logo }: Props) => {
                               (subTile: SubTile) => {
                                 return (
                                   <ListItem
+                                    key={subTile.id}
                                     href={subTile.attributes.href}
                                     title={subTile.attributes.title}
                                   >
@@ -84,7 +85,7 @@ export const NavDemo = ({ navData, navItems, logo }: Props) => {
                     );
                   } else if (navItem.item.attributes.type === "variant2") {
                     return (
-                      <NavigationMenuItem>
+                      <NavigationMenuItem key={navItem.item.id + "variant2"}>
                         <NavigationMenuTrigger>
                           {navItem.item.attributes.title}
                         </NavigationMenuTrigger>
@@ -94,7 +95,7 @@ export const NavDemo = ({ navData, navItems, logo }: Props) => {
                               (component) => {
                                 return (
                                   <ListItem
-                                    key={component.id}
+                                    key={component.id + "subcomp"}
                                     title={component.attributes.title}
                                     href={component.attributes.href}
                                   >
@@ -109,7 +110,7 @@ export const NavDemo = ({ navData, navItems, logo }: Props) => {
                     );
                   } else if (navItem.item.attributes.type === "variant3") {
                     return (
-                      <NavigationMenuItem>
+                      <NavigationMenuItem key={navItem.item.id + "variant3"}>
                         <Link
                           href={navItem.item.attributes.href}
                           legacyBehavior
@@ -129,6 +130,7 @@ export const NavDemo = ({ navData, navItems, logo }: Props) => {
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
+        {logoSec}
       </div>
     </header>
   );
