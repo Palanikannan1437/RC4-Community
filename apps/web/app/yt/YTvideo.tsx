@@ -5,13 +5,13 @@ export interface IYTvideo {
   videoPublishedAt: string;
 }
 
-type Props = {
+interface Props {
   video: IYTvideo;
-  width :number;
-  height:number;
-};
+  width: string;
+  height: string;
+}
 
-const YTvideo: React.FC<Props> = ({ video ,width,height}) => {
+const YTvideo = ({ video, width, height }: Props) => {
   const videoURL = `https://www.youtube.com/embed/${video.videoId}`;
 
   return (
@@ -19,7 +19,7 @@ const YTvideo: React.FC<Props> = ({ video ,width,height}) => {
       <div className="aspect-w-16 aspect-h-9">
         <iframe
           width={width}
-          height = {height}
+          height={height}
           src={videoURL}
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
