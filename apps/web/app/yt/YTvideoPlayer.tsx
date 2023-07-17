@@ -11,7 +11,7 @@ interface Props {
   height: string;
 }
 
-const YTvideo = ({ video, width, height }: Props) => {
+const YTvideoPlayer = ({ video, width, height }: Props) => {
   const videoURL = `https://www.youtube.com/embed/${video.videoId}`;
 
   return (
@@ -30,4 +30,4 @@ const YTvideo = ({ video, width, height }: Props) => {
   );
 };
 
-export default YTvideo;
+export default YTvideoPlayer;
