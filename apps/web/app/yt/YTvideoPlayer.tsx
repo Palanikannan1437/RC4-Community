@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface IYTvideo {
   videoId: string;
   videoPublishedAt: string;

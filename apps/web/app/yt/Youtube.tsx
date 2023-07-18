@@ -1,6 +1,7 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import YTvideoPlayer from './YTvideoPlayer';
+import { getPlaylistSnippet } from './FetchPlaylist';
 
 interface IYTvideo {
   videoId: string;
@@ -13,35 +14,20 @@ interface IYoutubePlaylistProps {
   width: string;
   title: string;
   sorted: boolean;
-  API_Key:string|undefined;
+  API_Key: string | undefined;
 }
 
-const getPlaylistSnippet = async (playlistId: string,API_Key:string|undefined): Promise<IYTvideo[]> => {
+const YoutubePlaylist: React.FC<IYoutubePlaylistProps> = ({ playlistId, height, width, title, sorted, API_Key }) => {
+  const [videos, setVideos] = useState<IYTvideo[]>([]);
 
-  try {
-    const response = await fetch(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${playlistId}&maxResults=50&key=${API_Key}`);
-    const data = await response.json();
-    console.log(data);
-    const { items } = data;
-    const contentDetails: IYTvideo[] = items.map((item: any) => item.contentDetails);
-    return contentDetails;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
-
-const YoutubePlaylist: React.FC<IYoutubePlaylistProps> = ({ playlistId, height, width, title, sorted,API_Key}) => {
-  const [videos, setVideos] = React.useState<IYTvideo[]>([]);
-
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchVideos = async () => {
-      const fetchedVideos = await getPlaylistSnippet(playlistId,API_Key);
+      const fetchedVideos = await getPlaylistSnippet(playlistId, API_Key);
       setVideos(fetchedVideos);
     };
 
     fetchVideos();
-  }, [playlistId]);
+  }, [playlistId, API_Key]);
 
   let sortedVideos: IYTvideo[];
 
