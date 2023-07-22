@@ -44,6 +44,15 @@
       ],
       "FetchData": [
         "dist/FetchData.d.mts"
+      ],
+      "FetchPlaylist": [
+        "dist/FetchPlaylist.d.mts"
+      ],
+      "ui/Youtube": [
+        "dist/ui/Youtube.d.mts"
+      ],
+      "core/FetchPlaylist": [
+        "dist/core/FetchPlaylist.d.mts"
       ]
     }
   },
@@ -54,13 +63,13 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.mts"
     },
-    "./Youtube": {
-      "import": "./dist/Youtube.mjs",
-      "types": "./dist/Youtube.d.mts"
+    "./ui/Youtube": {
+      "import": "./dist/ui/Youtube.mjs",
+      "types": "./dist/ui/Youtube.d.mts"
     },
-    "./functions": {
-      "import": "./dist/functions.mjs",
-      "types": "./dist/functions.d.mts"
+    "./core/FetchPlaylist": {
+      "import": "./dist/core/FetchPlaylist.mjs",
+      "types": "./dist/core/FetchPlaylist.d.mts"
     }
   }
 }
