@@ -4,13 +4,13 @@ export interface IYTvideo {
 }
 
 interface Props {
-  video: IYTvideo;
+  videoId: string;
   width: string;
   height: string;
 }
 
-const YTvideoPlayer = ({ video, width, height }: Props) => {
-  const videoURL = `https://www.youtube.com/embed/${video.videoId}`;
+const YTvideoPlayer = ({ videoId, width, height }: Props) => {
+  const videoURL = `https://www.youtube.com/embed/${videoId}`;
 
   return (
     <div className="bg-white p-4 rounded shadow-md w-full">
