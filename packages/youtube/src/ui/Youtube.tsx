@@ -1,15 +1,10 @@
-"use client"
-import React, { useEffect, useState } from 'react';
-import YTvideoPlayer from './YTvideoPlayer';
-import getPlaylistSnippet from '../core/FetchPlaylist';
-import sortData from '../core/SortVideos';
+import React from 'react';
 
 interface IYoutubePlaylistProps {
-  playlistId: string;
+  PlayListData: IVideoData[];
   height: string;
   width: string;
   title: string;
-  API_Key: string | undefined;
   count?: number;
   sort?: boolean;
 }
@@ -27,39 +22,62 @@ interface IVideoData {
 }
 
 const YoutubePlaylist: React.FC<IYoutubePlaylistProps> = ({
-  playlistId,
+  PlayListData,
   height,
   width,
   title,
-  API_Key,
   count,
   sort,
 }) => {
-  const [videos, setVideos] = useState<IVideoData[]>([]);
+  let displayedVideos: IVideoData[] = PlayListData;
 
-  useEffect(() => {
-    const fetchVideos = async () => {
-      const fetchedVideos = await getPlaylistSnippet(playlistId, API_Key);
-      setVideos(fetchedVideos);
+  if (sort) {
+    displayedVideos = [...PlayListData].sort((a, b) => {
+      const aValue = parseInt(a.statistics.viewCount, 10);
+      const bValue = parseInt(b.statistics.viewCount, 10);
+      return bValue - aValue;
+    });
+  }
 
-      if (sort) {
-        const sortedVideos = await sortData(fetchedVideos);
-        setVideos(sortedVideos);
-      }
-    };
-
-    fetchVideos();
-  }, [playlistId, API_Key, sort]);
-
-  const displayedVideos = count ? videos.slice(0, count) : videos;
+  if (count && count < displayedVideos.length) {
+    displayedVideos = displayedVideos.slice(0, count);
+  }
 
   return (
     <div className="container mx-auto p-8">
       <h1 className="text-3xl mb-6 text-center text-white">{title}</h1>
-      <div className="space-y-10">
+      <div className="grid grid-cols-1 gap-6">
         {displayedVideos.map((video: IVideoData) => (
-          <YTvideoPlayer key={video.id} videoId={video.id} width={width} height={height} />
+          <div key={video.id} className="border border-gray-300 rounded-lg overflow-hidden">
+            <YTvideoPlayer videoId={video.id} width={width} height={height} />
+          </div>
         ))}
+      </div>
+    </div>
+  );
+};
+
+
+interface Props {
+    videoId: string;
+    width: string;
+    height: string;
+}
+
+const YTvideoPlayer: React.FC<Props> = ({ videoId, width, height }) => {
+  const videoURL = `https://www.youtube.com/embed/${videoId}`;
+
+  return (
+    <div className="bg-white p-4 rounded shadow-md">
+      <div className="aspect-w-16 aspect-h-9">
+        <iframe
+          width={width}
+          height={height}
+          src={videoURL}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
       </div>
     </div>
   );

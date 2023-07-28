@@ -15,8 +15,7 @@ interface IVideoData {
     };
 }
 
-const getPlaylistSnippet = async (playlistId: string, API_Key: string | undefined)=> {
-// :Promise<IYTvideo[]>
+const getPlaylistSnippet = async (playlistId: string, API_Key: string | undefined):Promise<IVideoData[]>=> {
 
     let videos: IYTvideo[] = [];
     try {
