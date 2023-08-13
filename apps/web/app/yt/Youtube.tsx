@@ -1,14 +1,5 @@
 import React from 'react';
 
-interface IYoutubePlaylistProps {
-  PlayListData: IVideoData[];
-  height: string;
-  width: string;
-  title: string;
-  count?: number;
-  sort?: boolean;
-}
-
 interface IVideoData {
   kind: string;
   etag: string;
@@ -21,14 +12,27 @@ interface IVideoData {
   };
 }
 
-const YoutubePlaylist: React.FC<IYoutubePlaylistProps> = ({
-  PlayListData,
-  height,
-  width,
-  title,
-  count,
-  sort,
-}) => {
+function YoutubePlaylist ({PlayListData,count,sort,title,styleOverrides}:{PlayListData:IVideoData[],sort:boolean,count:number,title:string,styleOverrides?:{main?:string,VideoListItem?: string, title?: string, VideoList?: string, VideoContainer?: string,VideoWidth?:string,VideoHeight?:string}}, ) {
+
+  const defaultStyles = {
+    main:"container mx-auto p-8",
+    title: "text-3xl mb-6 text-center text-white",
+    VideoList: "grid grid-cols-1 gap-6",
+    VideoListItem: "border border-gray-300 rounded-lg overflow-hidden",
+    VideoContainer: "bg-white p-4 rounded shawdow-md aspect-w-16 aspect-h-9",
+};
+
+const styles = {
+    main: `${defaultStyles.main} ${styleOverrides?.main ?? ""}`,
+    VideoListItem: `${defaultStyles.VideoListItem} ${styleOverrides?.VideoListItem ?? ""}`,
+    title: `${defaultStyles.title} ${styleOverrides?.title ?? ""}`,
+    VideoList: `${defaultStyles.VideoList} ${styleOverrides?.VideoList ?? ""}`,
+    VideoContainer: `${defaultStyles.VideoContainer} ${styleOverrides?.VideoContainer ?? ""}`,
+    VideoWidth:  `${styleOverrides?.VideoWidth ?? "450px"}`,
+    VideoHeight : ` ${styleOverrides?.VideoHeight?? "300px"}`
+};
+
+
   let displayedVideos: IVideoData[] = PlayListData;
 
   if (sort) {
@@ -44,12 +48,21 @@ const YoutubePlaylist: React.FC<IYoutubePlaylistProps> = ({
   }
 
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-3xl mb-6 text-center text-white">{title}</h1>
-      <div className="grid grid-cols-1 gap-6">
+    <div className= {styles.main}>
+      <h1 className={styles.title}>{title}</h1>
+      <div className={styles.VideoList}>
         {displayedVideos.map((video: IVideoData) => (
-          <div key={video.id} className="border border-gray-300 rounded-lg overflow-hidden">
-            <YTvideoPlayer videoId={video.id} width={width} height={height} />
+          <div key={video.id} className={styles.VideoListItem}>
+            <div className={styles.VideoContainer} >
+            <iframe
+             width={styles.VideoWidth}
+             height={styles.VideoHeight}
+             src={`https://www.youtube.com/embed/${video.id}`}
+             frameBorder="0"
+             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+             allowFullScreen
+            />
+            </div>
           </div>
         ))}
       </div>
@@ -57,30 +70,5 @@ const YoutubePlaylist: React.FC<IYoutubePlaylistProps> = ({
   );
 };
 
-
-interface Props {
-    videoId: string;
-    width: string;
-    height: string;
-}
-
-const YTvideoPlayer: React.FC<Props> = ({ videoId, width, height }) => {
-  const videoURL = `https://www.youtube.com/embed/${videoId}`;
-
-  return (
-    <div className="bg-white p-4 rounded shadow-md">
-      <div className="aspect-w-16 aspect-h-9">
-        <iframe
-          width={width}
-          height={height}
-          src={videoURL}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
-    </div>
-  );
-};
 
 export default YoutubePlaylist;
