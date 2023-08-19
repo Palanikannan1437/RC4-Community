@@ -3,11 +3,11 @@ import { defineConfig } from "tsup";
 import type { Options } from "tsup";
 
 const client = [
-  "./src/ui/Youtube.tsx",
+  ""
 ];
 
 const server = [
-  "./src/core/FetchPlaylist.tsx",
+  "./src/core/YouTube"
 ];
 
 export default defineConfig((opts) => {

@@ -1,26 +1,19 @@
 import React from 'react';
 
-// import YoutubePlaylist from './Youtube';
-// import getPlaylistSnippet from './FetchPlaylist';
-
-import getPlaylistSnippet from '@youtube/src/core/FetchPlaylist';
-import YoutubePlaylist from '@youtube/src/ui/Youtube';
-
+import { YouTube } from '@youtube/src/core/YouTube';
 
 const Home = async () => {
   const playlistId = 'PLee3gqXJQrFXj3VqMruL_uC-7pb21cG3g';
-  const API_Key = process.env.GOOGLE_API_KEY;
-  
-  const PlayListData =  await getPlaylistSnippet(playlistId, API_Key)
+  const API_Key = process.env.GOOGLE_API_KEY as string;
 
   return (
-    <YoutubePlaylist
-      PlayListData={PlayListData}
-      count = {3}
-      sort = {false}
-      title={"Top GSOC 2022 Videos"}
-      styleOverrides={{
-      }}
+    <YouTube
+      playlistId={playlistId}
+      API_Key={API_Key}
+      sort={true}
+      title="Gsoc 2023"
+      count={3}
+      styleOverrides={{ title: 'italic' }}
     />
   );
 };
