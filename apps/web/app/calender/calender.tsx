@@ -1,35 +1,31 @@
 "use client"
+
 import React, { useState, useEffect } from 'react';
+import nodeAddToCal from 'node-add-to-calendar';
 
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-export default function Home() {
+export default function Home({ Events }) {
   const [month, setMonth]: any = useState();
   const [year, setYear]: any = useState();
   const [noOfDays, setNoOfDays]: any = useState([]);
   const [blankDays, setBlankDays]: any = useState([]);
-  const [events, setEvents]: any = useState([
-    {
-      event_date: new Date(2023, 3, 1),
-      event_title: "April Fool's Day",
-      event_theme: 'blue'
-    },
-    {
-      event_date: new Date(2023, 3, 10),
-      event_title: "Birthday",
-      event_theme: 'red'
-    },
-    {
-      event_date: new Date(2023, 3, 16),
-      event_title: "Upcoming Event",
-      event_theme: 'green'
-    }
-  ]);
-  const [eventTitle, setEventTitle] = useState('');
-  const [eventDate, setEventDate] = useState('');
-  const [eventTheme, setEventTheme] = useState('blue');
-  const [openEventModal, setOpenEventModal] = useState(false);
+
+  const MakeLink = (e) => {
+    return nodeAddToCal.googleLink({
+      title: e.event_title,
+      startTime: e.event_date,
+      description: e.event_description
+    })
+  }
+
+  Events.map((e) => {
+    e.event_link = MakeLink(e)
+  })
+
+
+  const [events, setEvents]: any = useState(Events)
 
   const initDate = () => {
     const today = new Date();
@@ -38,39 +34,19 @@ export default function Home() {
   };
 
   useEffect(() => {
+    getNoOfDays(); // Call getNoOfDays whenever month or year changes
+  }, [month, year]);
+
+  useEffect(() => {
     initDate();
     getNoOfDays();
   }, []);
+
 
   const isToday = (date) => {
     const today = new Date();
     const d = new Date(year, month, date);
     return today.toDateString() === d.toDateString();
-  };
-
-  const showEventModal = (date) => {
-    setOpenEventModal(true);
-    setEventDate(new Date(year, month, date).toDateString());
-  };
-
-  const addEvent = () => {
-    if (eventTitle === '') {
-      return;
-    }
-
-    const newEvent = {
-      event_date: eventDate,
-      event_title: eventTitle,
-      event_theme: eventTheme
-    };
-
-    setEvents([...events, newEvent]);
-
-    setEventTitle('');
-    setEventDate('');
-    setEventTheme('blue');
-
-    setOpenEventModal(false);
   };
 
   const getNoOfDays = () => {
@@ -149,7 +125,6 @@ export default function Home() {
               {noOfDays.map((date, dateIndex) => (
                 <div key={dateIndex} style={{ width: '14.28%', height: '120px' }} className="px-4 pt-2 border-r border-b relative">
                   <div
-                    onClick={() => showEventModal(date)}
                     className={`inline-flex w-6 h-6 items-center justify-center cursor-pointer text-center leading-none rounded-full transition ease-in-out duration-100 ${isToday(date) ? 'bg-blue-500 text-white' : 'text-gray-700 hover:bg-blue-200'}`}
                   >
                     {date}
@@ -159,13 +134,22 @@ export default function Home() {
                     {events.filter(event => new Date(event.event_date).toDateString() === new Date(year, month, date).toDateString()).map((event, eventIndex) => (
                       <div
                         key={eventIndex}
-                        className={`px-2 py-1 rounded-lg mt-1 overflow-hidden border ${event.event_theme === 'blue' ? 'border-blue-200 text-blue-800 bg-blue-100' :
-                          event.event_theme === 'red' ? 'border-red-200 text-red-800 bg-red-100' :
-                          event.event_theme === 'yellow' ? 'border-yellow-200 text-yellow-800 bg-yellow-100' :
-                          event.event_theme === 'green' ? 'border-green-200 text-green-800 bg-green-100' :
-                          event.event_theme === 'purple' ? 'border-purple-200 text-purple-800 bg-purple-100' : ''}`}
+                        className={`px-2 py-1 rounded-lg mt-1 overflow-hidden border ${event.event_theme === 'blue'
+                            ? 'border-blue-200 text-blue-800 bg-blue-100'
+                            : event.event_theme === 'red'
+                              ? 'border-red-200 text-red-800 bg-red-100'
+                              : event.event_theme === 'yellow'
+                                ? 'border-yellow-200 text-yellow-800 bg-yellow-100'
+                                : event.event_theme === 'green'
+                                  ? 'border-green-200 text-green-800 bg-green-100'
+                                  : event.event_theme === 'purple'
+                                    ? 'border-purple-200 text-purple-800 bg-purple-100'
+                                    : ''
+                          }`}
                       >
-                        <p className="text-sm truncate leading-tight">{event.event_title}</p>
+                        <a href={event.event_link} className="block mb-1 text-sm font-semibold">
+                          {event.event_title}
+                        </a>
                       </div>
                     ))}
                   </div>
