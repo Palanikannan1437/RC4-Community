@@ -11,6 +11,12 @@ export default async function Home() {
           event_description:"This is a Demo day for Gsoc contributor where they show us what they have build in GSOC for the community"
         },
         {
+          event_date: new Date('8-1-23 12:00'),
+          event_title: "World Wide Web Day ",
+          event_theme: 'blue',
+          event_description:"YAY Today is world wide web day"
+        },
+        {
           event_date: new Date('8-28-23'),
           event_title: "Final week",
           event_theme: 'red',

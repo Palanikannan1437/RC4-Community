@@ -146,8 +146,7 @@ export default function Home({ Events }) {
                                   : event.event_theme === 'purple'
                                     ? 'border-purple-200 text-purple-800 bg-purple-100'
                                     : ''
-                          }`}
-                      >
+                          }`}>
                         <a href={event.event_link} className="block mb-1 text-sm font-semibold">
                           {event.event_title}
                         </a>
