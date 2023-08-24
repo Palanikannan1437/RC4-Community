@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import nodeAddToCal from 'node-add-to-calendar';
+
+import googleLink from './function';
 
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -13,7 +14,7 @@ export default function Home({ Events }) {
   const [blankDays, setBlankDays]: any = useState([]);
 
   const MakeLink = (e) => {
-    return nodeAddToCal.googleLink({
+    return googleLink({
       title: e.event_title,
       startTime: e.event_date,
       description: e.event_description
@@ -34,7 +35,7 @@ export default function Home({ Events }) {
   };
 
   useEffect(() => {
-    getNoOfDays(); // Call getNoOfDays whenever month or year changes
+    getNoOfDays(); 
   }, [month, year]);
 
   useEffect(() => {
