@@ -1,4 +1,5 @@
-const moment = require('moment');
+// const moment = require('moment');
+import moment from 'moment';
 
 const handleEventData = eventData => {
   const dataObj = {
