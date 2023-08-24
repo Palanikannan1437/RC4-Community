@@ -51,7 +51,7 @@ function YoutubePlaylist({
     VideoContainer: `${defaultStyles.VideoContainer} ${
       styleOverrides?.VideoContainer ?? ''
     }`,
-    VideoWidth: `${styleOverrides?.VideoWidth ?? '450px'}`,
+    VideoWidth: `${styleOverrides?.VideoWidth ?? '500px'}`,
     VideoHeight: ` ${styleOverrides?.VideoHeight ?? '300px'}`,
   };
 
