@@ -235,6 +235,9 @@ importers:
       lucide-react:
         specifier: ^0.115.0
         version: 0.115.0(react@18.2.0)
+      moment:
+        specifier: ^2.29.4
+        version: 2.29.4
       qs:
         specifier: ^6.11.0
         version: 6.11.0
@@ -15916,7 +15919,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       scroll-into-view-if-needed: 3.0.6
-      zod: 3.21.4
+      zod: 3.22.2
     dev: false
 
   /nextra@2.12.0(next@13.1.6)(react-dom@18.2.0)(react@18.2.0):
