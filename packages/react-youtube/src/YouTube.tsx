@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import getPlaylistSnippet from './FetchPlaylist';
-import YoutubePlaylist from '../ui/YoutubePlayList';
+import getPlaylistSnippet from './core/FetchPlaylist';
+import YoutubePlaylist from './ui/YoutubePlayList';
 import React from 'react';
 
 interface IVideoData {

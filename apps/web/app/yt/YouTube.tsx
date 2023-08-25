@@ -40,7 +40,6 @@ const YTcontent = async ({
     playlistId,
     API_Key
   )) as IVideoData[];
-
   return (
     <YoutubePlaylist
       PlayListData={PlayListData}

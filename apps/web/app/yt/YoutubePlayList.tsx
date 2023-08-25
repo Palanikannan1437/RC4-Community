@@ -37,8 +37,9 @@ function YoutubePlaylist({
     main: 'container mx-auto p-8',
     title: 'text-3xl mb-6 text-center text-white',
     VideoList: 'grid grid-cols-1 gap-6',
-    VideoListItem: 'border border-gray-300 rounded-lg overflow-hidden',
-    VideoContainer: 'bg-white p-4 rounded shawdow-md aspect-w-16 aspect-h-9',
+    VideoListItem: 'border rounded-lg overflow-hidden',
+    VideoContainer: 'p-4 aspect-w-16 aspect-h-9',
+    
   };
 
   const styles = {
@@ -51,7 +52,7 @@ function YoutubePlaylist({
     VideoContainer: `${defaultStyles.VideoContainer} ${
       styleOverrides?.VideoContainer ?? ''
     }`,
-    VideoWidth: `${styleOverrides?.VideoWidth ?? '500px'}`,
+    VideoWidth: `${styleOverrides?.VideoWidth ?? '600px'}`,
     VideoHeight: ` ${styleOverrides?.VideoHeight ?? '300px'}`,
   };
 
