@@ -1,4 +1,6 @@
-import Calender, { IeventData } from './calender'
+// import Calender, { IeventData } from './calender'
+import {Calendar}  from 'react-calendar'
+import { IeventData } from './calender'
 
 export default async function Home() {
       const Events:IeventData[] = [
@@ -32,7 +34,7 @@ export default async function Home() {
     return (
         
         <>
-            <Calender Events={Events}  stylesOverrides={{today:"bg-red-500"}}/>         
+            <Calendar Events={Events}  stylesOverrides={{today:"bg-red-500"}}/>         
         </>
     )
 }
