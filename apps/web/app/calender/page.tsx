@@ -1,14 +1,13 @@
-
-import Calender from './calender'
+import Calender, { IeventData } from './calender'
 
 export default async function Home() {
-      const Events = [
+      const Events:IeventData[] = [
         {
-          // event_date: new Date(2023, 7, 23),
           event_date: new Date('8-24-23 12:00'),
           event_title: "Gsoc Demo Day",
           event_theme: 'blue',
-          event_description:"This is a Demo day for Gsoc contributor where they show us what they have build in GSOC for the community"
+          event_description:"This is a Demo day for Gsoc contributor where they show us what they have build in GSOC for the community",
+
         },
         {
           event_date: new Date('8-1-23 12:00'),
@@ -33,7 +32,7 @@ export default async function Home() {
     return (
         
         <>
-            <Calender Events={Events} />         
+            <Calender Events={Events}  stylesOverrides={{today:"bg-red-500"}}/>         
         </>
     )
 }
